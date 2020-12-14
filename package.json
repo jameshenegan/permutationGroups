@@ -1,0 +1,21 @@
+{
+  "name": "permutationgroups",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "babel": "node_modules/.bin/babel src/index.js -w -o dist/assets/bundle.js",
+    "build": "node_modules/.bin/webpack --mode production",
+    "dev": "node_modules/.bin/webpack -w --mode development"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0"
+  }
+}
