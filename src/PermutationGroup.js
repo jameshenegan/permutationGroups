@@ -12,6 +12,14 @@ class PermutationGroup {
     this.makeJSONpermutations();
   }
 
+  getArrayOfPermArraysFromArrayOfIndices(arrayOfIndices) {
+    const arrayOfPermArrays = [];
+    arrayOfIndices.forEach((index) =>
+      arrayOfPermArrays.push(this.getPermutationArrayFromIndex(index))
+    );
+    return arrayOfPermArrays;
+  }
+
   getSign(permArray) {
     const numEvenLengthCycles = this.getNumberOfEvenLengthCycles(permArray);
     let toReturn;

@@ -3,10 +3,8 @@ import BasePlot from "./BasePlot";
 import FirstRow from "./FirstRow";
 import GenericRow from "./GenericRow";
 
-const timerDelay = 1000;
-
-const numElements = 4;
-const arrayOfIndices = [0, 1, 2, 7];
+const numElements = 3;
+const arrayOfIndices = [1, 2, 3, 1];
 const circleRadius = 40;
 
 // set up the permutation group
@@ -26,19 +24,21 @@ const firstRow = new FirstRow(basePlot);
 firstRow.makePlotData();
 firstRow.makePlot();
 
-// set up the animation functionality
-
 const numRows = arrayOfIndices.length + 1;
 
-const myFunction = function (j, tempIndexOfImagePostTransformation) {
-  let indexOfImagePreTransformation,
-    indexOfImagePostTransformation,
-    arrayOfImagesPreTransformation,
-    arrayOfImagesPostTransformation,
-    nextRow;
+let j,
+  indexOfImagePreTransformation,
+  indexOfImagePostTransformation,
+  arrayOfImagesPreTransformation,
+  arrayOfImagesPostTransformation,
+  nextRow;
 
-  indexOfImagePreTransformation = tempIndexOfImagePostTransformation;
+indexOfImagePostTransformation = 0;
 
+j = 0;
+
+while (j < 4) {
+  indexOfImagePreTransformation = indexOfImagePostTransformation;
   indexOfImagePostTransformation = s5.performBinaryOperationFromIndices(
     indexOfImagePreTransformation,
     arrayOfIndices[j]
@@ -54,27 +54,11 @@ const myFunction = function (j, tempIndexOfImagePostTransformation) {
     basePlot,
     numRows - 1 - j,
     arrayOfImagesPreTransformation,
-    arrayOfImagesPostTransformation,
-    timerDelay
+    arrayOfImagesPostTransformation
   );
   nextRow.makePlotData();
   nextRow.initializePlot();
   nextRow.transitionPlot();
 
-  return indexOfImagePostTransformation;
-};
-
-let counter = 0;
-let indexOfImagePostTransformation = 0;
-var intervalID = setInterval(function () {
-  indexOfImagePostTransformation = myFunction(
-    counter,
-    indexOfImagePostTransformation
-  );
-
-  counter = counter + 1;
-
-  if (counter === arrayOfIndices.length) {
-    window.clearInterval(intervalID);
-  }
-}, timerDelay);
+  j++;
+}

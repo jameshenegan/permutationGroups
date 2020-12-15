@@ -1,31 +1,36 @@
+import { timer } from "d3";
+
 class GenericRow {
   constructor(
     basePlot,
     prePermutationRowNumber,
-    prePermutationArray,
-    postPermutationArray
+    arrayOfImagesPrePermutation,
+    arrayOfImagesPostPermutation,
+    timerDelay
   ) {
     this.pointGroup = basePlot.mainViz.append("g");
     this.prePermutationRowNumber = prePermutationRowNumber;
-    this.prePermutationArray = prePermutationArray;
-    this.postPermutationArray = postPermutationArray;
+    this.arrayOfImagesPrePermutation = arrayOfImagesPrePermutation;
+    this.arrayOfImagesPostPermutation = arrayOfImagesPostPermutation;
     this.xScale = basePlot.xScale;
     this.yScale = basePlot.yScale;
     this.colorScale = basePlot.colorScale;
     this.numElements = basePlot.numElements;
     this.circleRadius = basePlot.circleRadius;
+    this.timerDelay = timerDelay;
   }
 
   makePlotData() {
     const plotData = [];
     for (let j = 0; j < this.numElements; j++) {
       const tempObject = {};
-      tempObject.xPre = j;
-      tempObject.xPost = this.postPermutationArray[j];
-      tempObject.color = this.prePermutationArray[j];
+      tempObject.xPre = this.arrayOfImagesPrePermutation[j];
+      tempObject.xPost = this.arrayOfImagesPostPermutation[j];
+      tempObject.color = j;
       plotData.push(tempObject);
     }
     this.plotData = plotData;
+    console.log(this.plotData);
   }
 
   initializePlot() {
@@ -45,7 +50,7 @@ class GenericRow {
     this.pointGroup
       .selectAll("circle")
       .transition()
-      .duration(5000)
+      .duration(this.timerDelay)
       .attr("cx", (d) => this.xScale(d.xPost))
       .attr("cy", this.yScale(this.prePermutationRowNumber - 1));
   }
